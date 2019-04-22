@@ -1,0 +1,25 @@
+{{ define "base" }}
+    <html>
+    <head>
+{{/*        <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">*/}}
+        <link rel="stylesheet" href="/static/css/styles.css">
+        {{template "title" . }}
+    </head>
+    <body>
+    <header>
+        {{ if not .github_user }}
+            <a href="/api/auth/start">Start</a>
+        {{ else }}
+            <a href="/api/auth/destroy-session">Logout</a>
+            <h3 class="highlight">Logged in as {{ .github_user.Name }}</h3>
+        {{ end }}
+        <div class="title">
+            <h1>break-down.io</h1>
+        </div>
+    </header>
+    <div id="page">
+        {{ template "content" . }}
+    </div>
+    </body>
+    </html>
+{{ end }}

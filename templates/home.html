@@ -1,0 +1,18 @@
+{{ define "title"}}<title>break-down</title>{{ end }}
+{{ define "content" }}
+    <div class="current-user">
+        {{ if .github_user }}
+
+            <img src="{{ .github_user.AvatarURL }}" alt="...">
+            <h3>Data</h3>
+            <ul>
+                {{ range $key, $value := .github_user_map }}
+                    <li><strong>{{ $key }}</strong>: {{ $value }}</li>
+                {{ end }}
+            </ul>
+        {{ else }}
+            <h3>Not logged in as anyone</h3>
+        {{ end }}
+    </div>
+    </div>
+{{ end }}
