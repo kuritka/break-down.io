@@ -8,10 +8,10 @@ RUN mkdir /app
 WORKDIR /app
 
 #copy from build context (mostly .) to just defined workdir
-COPY . .
+# COPY . .
 
 # RUN go mod init github.com/pennylab.io/calendarBackend
-RUN go mod init --force
+RUN go mod init github.com/kuritka/break-down.io
 
 RUN go mod download
 

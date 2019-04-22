@@ -3,14 +3,14 @@ package db
 import (
 	"context"
 	"errors"
+
 	"time"
 
+	"github.com/kuritka/break-down.io/common/data"
 	"github.com/rs/zerolog/log"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-
-	"main/common/data"
 )
 
 type db struct {

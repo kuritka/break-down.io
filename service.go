@@ -2,12 +2,12 @@ package main
 
 import (
 	"log"
-	"main/common/db"
-	"main/services/portal"
 	"net/http"
 	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/kuritka/break-down.io/common/db"
+	"github.com/kuritka/break-down.io/services/portal"
 	"go.uber.org/dig"
 )
 
@@ -21,6 +21,7 @@ func BuildContainer() *dig.Container {
 		ConnectionString:"mongodb://localhost:27017",
 		Provider:db.MongoProvider,
 	}
+
 
 	container := dig.New()
 	container.Provide(func() db.ClientOptions {return dbOptions})

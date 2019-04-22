@@ -1,20 +1,33 @@
-Sending build context to Docker daemon  33.74MB
-Step 1/12 : FROM golang:1.12
+Sending build context to Docker daemon  33.72MB
+Step 1/11 : FROM golang:1.12
  ---> b860ab44e93e
-Step 2/12 : ARG USER=appuser
- ---> Using cache
- ---> 846baf825016
-Step 3/12 : RUN mkdir /app
- ---> Using cache
- ---> 8a2498cef0ff
-Step 4/12 : WORKDIR /app
- ---> Using cache
- ---> 1a4a900a4627
-Step 5/12 : COPY . .
- ---> 30f5161cd85f
-Step 6/12 : RUN go mod init --force
- ---> Running in 56744bab85f7
-[91mflag provided but not defined: -force
-usage: go mod init [module]
-Run 'go help mod init' for details.
+Step 2/11 : ARG USER=appuser
+ ---> Running in 2493322f135c
+Removing intermediate container 2493322f135c
+ ---> be982d4a9156
+Step 3/11 : RUN mkdir /app
+ ---> Running in 4489b75bc42a
+Removing intermediate container 4489b75bc42a
+ ---> 76617c929412
+Step 4/11 : WORKDIR /app
+ ---> Running in 8d68718bb596
+Removing intermediate container 8d68718bb596
+ ---> 4cdb23c43e5f
+Step 5/11 : RUN go mod init github.com/kuritka/break-down.io
+ ---> Running in 35039c4a2fed
+[91mgo: creating new go.mod: module github.com/kuritka/break-down.io
+[0mRemoving intermediate container 35039c4a2fed
+ ---> d9657220d89c
+Step 6/11 : RUN go mod download
+ ---> Running in 46aa4b2a1695
+Removing intermediate container 46aa4b2a1695
+ ---> a4392551d562
+Step 7/11 : RUN go mod vendor
+ ---> Running in f61bf3de28e6
+[91mgo: no dependencies to vendor
+[0mRemoving intermediate container f61bf3de28e6
+ ---> e457819493c0
+Step 8/11 : RUN go build -o main .
+ ---> Running in 39bd05d3879b
+[91mcan't load package: package github.com/kuritka/break-down.io: unknown import path "github.com/kuritka/break-down.io": cannot find module providing package github.com/kuritka/break-down.io
 [0m

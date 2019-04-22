@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"html/template"
 	"io/ioutil"
-	"main/common/db"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
+	"github.com/kuritka/break-down.io/common/db"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/oauth2"
 )
