@@ -1,29 +1,29 @@
-FROM golang:1.8
+FROM golang:1.12
 
 # specifying default value if user is not defined
-ARG USER=gouser
+ARG USER=appuser
 
-WORKDIR /go/src/app
+RUN mkdir /app
+
+WORKDIR /app
 
 #copy from build context (mostly .) to just defined workdir
 COPY . .
 
 # RUN go mod init github.com/pennylab.io/calendarBackend
-RUN go mod init
+RUN go mod init --force
 
 RUN go mod download
 
 RUN go mod vendor
 
-RUN adduser -D $USER
+RUN go build -o main .
 
-RUN go build
+RUN adduser -S -D -H -h /app $USER
 
-#WORKDIR /home/$USER
-#
-#USER $USER
+USER $USER
 
 
 # what gets executed after container is created from the image
-CMD ["main"]
+CMD ["./main"]
 #ENTRYPOINT ["aws"]
