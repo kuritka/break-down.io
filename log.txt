@@ -1,33 +1,69 @@
-Sending build context to Docker daemon  33.72MB
-Step 1/11 : FROM golang:1.12
+Sending build context to Docker daemon  51.71MB
+Step 1/12 : FROM golang:1.12
  ---> b860ab44e93e
-Step 2/11 : ARG USER=appuser
- ---> Running in 2493322f135c
-Removing intermediate container 2493322f135c
- ---> be982d4a9156
-Step 3/11 : RUN mkdir /app
- ---> Running in 4489b75bc42a
-Removing intermediate container 4489b75bc42a
- ---> 76617c929412
-Step 4/11 : WORKDIR /app
- ---> Running in 8d68718bb596
-Removing intermediate container 8d68718bb596
- ---> 4cdb23c43e5f
-Step 5/11 : RUN go mod init github.com/kuritka/break-down.io
- ---> Running in 35039c4a2fed
-[91mgo: creating new go.mod: module github.com/kuritka/break-down.io
-[0mRemoving intermediate container 35039c4a2fed
- ---> d9657220d89c
-Step 6/11 : RUN go mod download
- ---> Running in 46aa4b2a1695
-Removing intermediate container 46aa4b2a1695
- ---> a4392551d562
-Step 7/11 : RUN go mod vendor
- ---> Running in f61bf3de28e6
-[91mgo: no dependencies to vendor
-[0mRemoving intermediate container f61bf3de28e6
- ---> e457819493c0
-Step 8/11 : RUN go build -o main .
- ---> Running in 39bd05d3879b
-[91mcan't load package: package github.com/kuritka/break-down.io: unknown import path "github.com/kuritka/break-down.io": cannot find module providing package github.com/kuritka/break-down.io
-[0m
+Step 2/12 : ARG USER=appuser
+ ---> Using cache
+ ---> d9857c030feb
+Step 3/12 : RUN mkdir /app
+ ---> Using cache
+ ---> dcb9f26b4f28
+Step 4/12 : WORKDIR /app
+ ---> Using cache
+ ---> e9ed651dc7b0
+Step 5/12 : RUN git clone http://github.com/kuritka/break-down.io
+ ---> Using cache
+ ---> 35ccb2c203f3
+Step 6/12 : WORKDIR /app/break-down.io
+ ---> Using cache
+ ---> 3fe4e04e3fa6
+Step 7/12 : RUN go mod init github.com/kuritka/break-down.io
+ ---> Using cache
+ ---> 2542756b0a68
+Step 8/12 : RUN go list -e $(go list -f . -m all)
+ ---> Using cache
+ ---> 3b9816d79c46
+Step 9/12 : RUN go build -o main .
+ ---> Using cache
+ ---> c328ffd00bbc
+Step 10/12 : RUN adduser -H -h $USER
+ ---> Running in 47cb56f2b015
+adduser [--home DIR] [--shell SHELL] [--no-create-home] [--uid ID]
+[--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup GROUP | --gid ID]
+[--disabled-password] [--disabled-login] [--add_extra_groups] USER
+   Add a normal user
+
+adduser --system [--home DIR] [--shell SHELL] [--no-create-home] [--uid ID]
+[--gecos GECOS] [--group | --ingroup GROUP | --gid ID] [--disabled-password]
+[--disabled-login] [--add_extra_groups] USER
+   Add a system user
+
+adduser --group [--gid ID] GROUP
+addgroup [--gid ID] GROUP
+   Add a user group
+
+addgroup --system [--gid ID] GROUP
+   Add a system group
+
+adduser USER GROUP
+   Add an existing user to an existing group
+
+general options:
+  --quiet | -q      don't give process information to stdout
+  --force-badname   allow usernames which do not match the
+                    NAME_REGEX configuration variable
+  --help | -h       usage message
+  --version | -v    version number and copyright
+  --conf | -c FILE  use FILE as configuration file
+
+Removing intermediate container 47cb56f2b015
+ ---> 42972b6c2f5a
+Step 11/12 : USER $USER
+ ---> Running in 8253d2803449
+Removing intermediate container 8253d2803449
+ ---> 7a761b940603
+Step 12/12 : CMD ["./main"]
+ ---> Running in 0f84e47d2c00
+Removing intermediate container 0f84e47d2c00
+ ---> ea97472b10f6
+Successfully built ea97472b10f6
+Successfully tagged auth:1.1
