@@ -7,23 +7,20 @@ import (
 )
 
 type (
-
 	dbi int
 
-	CalendarProvider interface{
+	CalendarProvider interface {
 		Connection() db
 	}
 
 	//ClientOptions pass parameters for factory
 	ClientOptions struct {
 		ConnectionString string
-		Collection string
-		Database string
-		Provider dbi
-		Timeout time.Duration
+		Collection       string
+		Database         string
+		Provider         dbi
+		Timeout          time.Duration
 	}
-
-
 
 	mongoImpl struct {
 		Options ClientOptions
@@ -46,7 +43,7 @@ func NewDb(options ClientOptions) CalendarProvider {
 	case MssqlProvider:
 		return &sqlImpl{Options: options}
 	default:
-		log.Fatal().Msgf("not implemented %v",options.Provider)
+		log.Fatal().Msgf("not implemented %v", options.Provider)
 		return nil
 	}
 }

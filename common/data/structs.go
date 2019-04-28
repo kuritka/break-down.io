@@ -1,12 +1,11 @@
 package data
 
-
 type Calendar struct {
-	Name string	`json:"name" bson:"_id"`
+	Name     string `json:"name" bson:"_id"`
 	Schedule Schedule
 }
 
-type Schedule struct{
+type Schedule struct {
 	Mon Mon
 	Tue Tue
 	Wed Wed
@@ -15,11 +14,11 @@ type Schedule struct{
 }
 
 type Event struct {
-	From string
-	To	string
-	Note string
+	From    string
+	To      string
+	Note    string
 	Subject string
-	Week string
+	Week    string
 }
 
 type Mon struct {
@@ -41,7 +40,3 @@ type Thr struct {
 type Fri struct {
 	Events []Event
 }
-
-
-
-
