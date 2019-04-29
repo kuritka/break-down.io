@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17aa26a5-225e-409d-a298-5afc8325719c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Dockerfile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/data/factory.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/data/factory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/data/structs.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/data/structs.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/db/mongo.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/db/mongo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/db/provider.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/db/provider.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile2" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,17 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="58" selection-start-line="58" selection-end-line="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Dockerfile2">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+            <state relative-caret-position="21">
+              <caret line="1" column="82" lean-forward="true" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="82" />
             </state>
           </provider>
         </entry>
@@ -53,7 +40,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/log.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-326">
+            <state relative-caret-position="483">
               <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
             </state>
           </provider>
@@ -62,7 +49,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/portal/routes.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1302">
+            <state relative-caret-position="651">
               <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
               <folding>
                 <element signature="e#16#85#0" expanded="true" />
@@ -74,7 +61,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/portal/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
+            <state relative-caret-position="231">
               <caret line="11" column="31" selection-start-line="11" selection-end-line="11" selection-end-column="31" />
             </state>
           </provider>
@@ -100,7 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bson</find>
       <find>Client</find>
       <find>store</find>
       <find>config</find>
@@ -130,6 +116,7 @@
       <find>main/comm</find>
       <find>kuritka</find>
       <find>github.com/kuritka/break-down.io</find>
+      <find>release</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/lib/golang" />
@@ -170,10 +157,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2614" />
-    <option name="y" value="358" />
-    <option name="width" value="1910" />
-    <option name="height" value="784" />
+    <option name="x" value="1756" />
+    <option name="y" value="280" />
+    <option name="width" value="1260" />
+    <option name="height" value="791" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -185,6 +172,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -218,7 +206,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -310,10 +297,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="-16" width="2560" height="1456" extended-state="6" />
+    <frame x="1756" y="280" width="1260" height="791" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23157895" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19769357" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -326,13 +313,13 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" weight="0.32938388" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32938388" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.27583262" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.55198777" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.3296328" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.14898786" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.3113674" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,7 +327,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="dockerizing" />
-    <option name="LAST_COMMIT_MESSAGE" value="dockerizing" />
+    <MESSAGE value="dockerizing , multi-stage dockers" />
+    <option name="LAST_COMMIT_MESSAGE" value="dockerizing , multi-stage dockers" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -587,9 +575,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/services/portal/routes.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1302">
+        <state relative-caret-position="651">
           <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
           <folding>
             <element signature="e#16#85#0" expanded="true" />
@@ -599,7 +594,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/services/portal/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
+        <state relative-caret-position="231">
           <caret line="11" column="31" selection-start-line="11" selection-end-line="11" selection-end-column="31" />
         </state>
       </provider>
@@ -611,24 +606,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-326">
-          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Dockerfile2">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="210">
           <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        <state relative-caret-position="21">
+          <caret line="1" column="82" lean-forward="true" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="82" />
         </state>
       </provider>
     </entry>

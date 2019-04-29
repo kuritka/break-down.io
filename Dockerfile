@@ -1,9 +1,12 @@
 #docker run -p 3000:8080  auth:1.0
-#docker build --build-arg USER=gouser -t auth:1.6 .
+#docker build --build-arg USER=gouser --target release-stage -t kuritka/auth:1.6 .
+#or running those two commands will correctly tag particular stages
+#sudo docker build --target build-stage -t auth-builder-image:1.0 . \
+#sudo docker build --build-arg USER=gouser --target release-stage -t kuritka/auth:1.6 .
 
 #we use multistage docker image. First stage is called build and is used
 #for building app in container where go and git exists..
-FROM golang:1.12 as build
+FROM golang:1.12 as build-stage
 
 # specifying default value if user is not defined
 ARG USER=appuser
@@ -32,29 +35,20 @@ RUN git clone http://github.com/kuritka/break-down.io . && \
 #960MB
 
 #-----------------------------------------------------
-#FROM scratch as release - -5MB and is difficult to troubleshoot (missing bash)
-FROM alpine:latest as release
-
-#installing certificates otherwise app doesnt connect to github
-#this needs to be extra solved for scratch image (+2MB)
-RUN     set -x \
-    &&  mkdir /app \
-    &&  apk update \
-    &&  apk upgrade \
-    &&  apk add --no-cache \
-            ca-certificates \
-    && update-ca-certificates 2>/dev/null || true
+# FROM alpine:latest as release-stage +5MB and is easy to troubleshoot (bash is present)
+FROM scratch as release-stage
 
 WORKDIR /app
 
 #multistage containers - copying from build stage /build to /app
-COPY --from=build /build/static /app/static
-COPY --from=build /build/templates /app/templates
-COPY --from=build /build/main /app/main
-COPY --from=build /build/config.json /app/config.json
+COPY --from=build-stage /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=build-stage /build/static /app/static
+COPY --from=build-stage /build/templates /app/templates
+COPY --from=build-stage /build/main /app/main
+COPY --from=build-stage /build/config.json /app/config.json
 
 ENTRYPOINT ["./main"]
-#27MB
+#19.6MB
 
 #delete all <none> images
 #sudo docker rmi $(sudo docker images | grep "^<none>" | awk '{ print $3 }')
