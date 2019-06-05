@@ -4,6 +4,35 @@
 ::after {
     box-sizing: border-box;
 }
+::selection{background:#9c27b0;color:#fff}
+
+body {
+    background-color: #110e17;
+    overflow-x: hidden; /* For Opera */
+
+}
+
+.video-container
+{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 560px;
+}
+
+canvas {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+video
+{
+    align-self: center;
+}
+
 
 /* gradient source: https://uigradients.com/#Wiretap */
 /* decreased transparency to 80% */
@@ -13,9 +42,14 @@
     padding: 3px 6px;
 }
 
-body {
-    background-color: #110e17;
+
+header {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 
 
 h1 {
@@ -29,13 +63,22 @@ h1 {
     font-size: 4em;
 }
 
-h2,h3 {
+h2,h3{
     color: #fff;
     text-align: center;
     font-family: "Righteous", sans-serif;
     letter-spacing: 2px;
     padding: 80px 0;
 }
+
+h4 {
+    color: #fff;
+    text-align: center;
+    font-family: "Righteous", sans-serif;
+    letter-spacing: 2px;
+    padding: 5px 0;
+}
+
 
 a {
     color: #fff;
@@ -58,3 +101,19 @@ ul {
     color: #fff;
     font-size: 1em;
 }
+
+.right {
+    text-align: right;
+    padding-right: 1em;
+}
+
+.center {
+    text-align: center;
+}
+
+.circular--square {
+    border-radius: 50%;
+}
+
+
+

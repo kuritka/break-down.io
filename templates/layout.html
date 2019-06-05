@@ -2,24 +2,38 @@
     <html>
     <head>
 {{/*        <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">*/}}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="/static/css/styles.css">
+        <script defer src="/static/js/face-api.min.js"></script>
+        <script defer src="/static/js/face-recognition.js"></script>
         {{template "title" . }}
     </head>
     <body>
-    <header>
-        {{ if not .github_user }}
-            <a href="/api/auth/start">Start</a>
-        {{ else }}
-            <a href="/api/auth/destroy-session">Logout</a>
-            <h3 class="highlight">Logged in as {{ .github_user.Name }}</h3>
-        {{ end }}
-        <div class="title">
-            <h1>break-down.io</h1>
+            <header>
+                {{if not .github_user}}
+                    <div class="title">
+                        <h1>onho.io</h1>
+                    </div>
+                {{ else }}
+                    <div class="right">
+                        <a href="/api/auth/destroy-session">Logout</a>
+                    </div>
+                    <h3 class="highlight">Logged in as {{ .github_user.Login }}</h3>
+                    <div class="center">
+                        <div>
+                            <img class="circular--square" width="50px" height="50px" src="{{ .github_user.AvatarURL }}" alt="...">
+                        </div>
+                        <div>
+                            <h4>{{index .github_user_map "Name" }}, {{index .github_user_map "Location" }}</h4>
+                        </div>
+                {{ end }}
+            </header>
+            <div id="page">
+                {{ template "content" . }}
+            </div>
         </div>
-    </header>
-    <div id="page">
-        {{ template "content" . }}
-    </div>
     </body>
     </html>
 {{ end }}

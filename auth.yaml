@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: auth
+  # be careful with namespace here, remove it when  you don't use services
+  namespace: onhoio
+spec:
+  containers:
+    - name: auth
+      image: kuritka/auth:latest
+  restartPolicy: Never
+

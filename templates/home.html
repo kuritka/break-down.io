@@ -1,17 +1,48 @@
-{{ define "title"}}<title>break-down</title>{{ end }}
+{{ define "title"}}<title>onho.io</title>{{ end }}
 {{ define "content" }}
     <div class="current-user">
         {{ if .github_user }}
+{{/*            <h3>Data</h3>*/}}
+{{/*            <ul>*/}}
+{{/*                {{ range $key, $value := .github_user_map }}*/}}
+{{/*                    <li><strong>{{ $key }}</strong>: {{ $value }}</li>*/}}
+{{/*                {{ end }}*/}}
+{{/*            </ul>*/}}
+        <div class="video-container">
+                <video id="video" width="720" height="560" autoplay muted></video>
+        </div>
+{{/*        <div>*/}}
+{{/*            <input id="input" type="text" />*/}}
+{{/*            <button onclick="send()">Send</button>*/}}
+{{/*            <pre id="output" style="color: #ffffff;"></pre>*/}}
+{{/*        </div>*/}}
 
-            <img src="{{ .github_user.AvatarURL }}" alt="...">
-            <h3>Data</h3>
-            <ul>
-                {{ range $key, $value := .github_user_map }}
-                    <li><strong>{{ $key }}</strong>: {{ $value }}</li>
-                {{ end }}
-            </ul>
+{{/*        <script>*/}}
+{{/*            var input = document.getElementById("input");*/}}
+{{/*            var output = document.getElementById("output");*/}}
+{{/*            var socket = new WebSocket("ws://localhost:8080/api/websockets/stream");*/}}
+
+{{/*            socket.onopen = function () {*/}}
+{{/*                output.innerHTML += "Status: Connected\n";*/}}
+{{/*            };*/}}
+
+{{/*            socket.onmessage = function (e) {*/}}
+{{/*                output.innerHTML += "Server: " + e.data + "\n";*/}}
+{{/*            };*/}}
+
+{{/*            function send() {*/}}
+{{/*                socket.send({{index .github_user_map "Login" }} + " " + input.value);*/}}
+{{/*                input.value = "";*/}}
+{{/*            }*/}}
+{{/*        </script>*/}}
+
         {{ else }}
-            <h3>Not logged in as anyone</h3>
+            {{ if not .github_user }}
+                <div class="center">
+                    <a href="/api/auth/start">Start</a>
+                </div>
+            {{ end }}
+            <h3>Home Office For Everyone</h3>
         {{ end }}
     </div>
     </div>

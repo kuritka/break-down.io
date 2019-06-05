@@ -5,11 +5,10 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"fmt"
-	"net/http"
-
 	"github.com/google/go-github/github"
 	"github.com/mitchellh/mapstructure"
 	"golang.org/x/oauth2"
+	"net/http"
 )
 
 func (s *Server) handleAuthCallback(sessionKey string)http.HandlerFunc {
@@ -112,5 +111,33 @@ func (s *Server) handleDestroySession(sessionKey string) http.HandlerFunc {
 		session.Save(r, w)
 		http.Redirect(w, r, "/", 302)
 
+	}
+}
+
+
+func (s *Server) handleStream() http.HandlerFunc {
+	//todo: implement way back to tell client that server doesn't recognise....
+	return func(w http.ResponseWriter, r *http.Request) {
+		socket, err := s.upgrader.Upgrade(w, r, nil)
+		defer socket.Close()
+		socket.SetReadLimit(1024)
+		//socket.SetReadDeadline(time.Now().Add(60*time.Second))
+		//socket.SetPongHandler(func(string) error {	socket.SetReadDeadline(time.Now().Add(60*time.Second));	return nil	})
+		if err != nil {
+			return
+		}
+		//socket id opened, now >> go handleRead
+		for {
+			msgType, msg, err := socket.ReadMessage()
+			if err != nil {
+				return
+			}
+			fmt.Printf("%s sent: %s\n", socket.RemoteAddr(), string(msg))
+
+			// Write message back to browser
+			if err = socket.WriteMessage(msgType, msg); err != nil {
+				return
+			}
+		}
 	}
 }
