@@ -1,5 +1,7 @@
 const video =  document.getElementById("video");
-const displaySize = {width: video.width, height: video.height};
+// const displaySize = {width: video.width, height: video.height};
+var displaySize = {width: window.innerWidth, height: window.innerHeight};
+const videoContainer = document.getElementById("video-container");
 
 
 //download in parallel
@@ -22,13 +24,31 @@ function startCamera() {
     )
 }
 
+
+//video display size is different from video element size => recompute
+video.addEventListener( "loadedmetadata", function (e) {
+    var videoRatio = video.videoWidth / video.videoHeight;
+    // The width and height of the video element
+    var width = video.offsetWidth, height = video.offsetHeight;
+    // The ratio of the element's width to its height
+    var elementRatio = width/height;
+    // If the video element is short and wide
+    if(elementRatio > videoRatio) width = height * videoRatio;
+    // It must be tall and thin, or exactly equal to the original ratio
+    else height = width / videoRatio;
+    displaySize.width = width;
+    displaySize.height = height;
+}, false );
+
+
 video.addEventListener('play', ()=> {
     const canvas = faceapi.createCanvasFromMedia(video);
     //append rectangle with face to video
-    console.log(video.style)
     document.body.append(canvas);
+    videoContainer.appendChild(canvas);
     //video.appendChild(canvas);
     faceapi.matchDimensions(canvas,displaySize);
+    console.log(displaySize)
     //detect face asynchronously from video in interval 300ms
     setInterval(async () => {
         //detects all faces from video

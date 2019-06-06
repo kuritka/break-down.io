@@ -12,26 +12,106 @@ body {
 
 }
 
-.video-container
-{
-    position: absolute;
-    text-align: center;
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 560px;
+    max-height: 560px;
+    border: red;
+}
+
+.video-container > video{
+    position: absolute;
+    align-self:  stretch;
+    max-width: 720px;
+    width:100%;
+
 }
 
 canvas {
     position: absolute;
-    top: 53%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    align-self: stretch;
+    max-width: 720px;
+    /*height: 560px;*/
+    /*width:100%;*/
+    /*height:100%;*/
+    /*background-color: white;*/
 }
 
 
-video
-{
-    align-self: center;
-}
+/*.video-container*/
+/*{*/
+/*    z-index: 1;*/
+/*    !*position: absolute;*!*/
+/*    !*top: 53%;*!*/
+/*    !*left: 50%;*!*/
+/*    !*transform: translate(-50%, -50%);*!*/
+/*    !*min-width: 760px;*!*/
+/*    !*max-width: 80%;*!*/
+/*    max-width: 1024px;*/
+/*    position:absolute;*/
+/*    top:220px;*/
+/*    bottom: 0;*/
+/*    width: 100%;*/
+/*    height: 60%;*/
+/*    overflow: hidden;*/
+/*    transform: translate(50%,0);*/
+/*}*/
+
+/*.video-container video {*/
+/*    z-index: 1;*/
+
+/*    !* Make video to at least 100% wide and tall *!*/
+/*    min-width: 100%;*/
+/*    min-height: 40%;*/
+/*    max-width: 760px;*/
+
+/*    !* Setting width & height to auto prevents the browser from stretching or squishing the video *!*/
+/*    width: auto;*/
+/*    height: auto;*/
+
+/*    !* Center the video *!*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%,-50%);*/
+/*}*/
+
+/*canvas {*/
+/*    z-index: 1;*/
+/*    !* Make video to at least 100% wide and tall *!*/
+/*    min-width: 100%;*/
+/*    min-height: 40%;*/
+/*    max-width: 760px;*/
+
+/*    !* Setting width & height to auto prevents the browser from stretching or squishing the video *!*/
+/*    width: auto;*/
+/*    height: auto;*/
+
+/*    !* Center the video *!*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%,-50%);*/
+/*}*/
+
+
+
+
+
+/*canvas {*/
+/*    position: absolute;*/
+/*    top: 53%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*}*/
+
+
+/*video*/
+/*{*/
+/*    align-self: center;*/
+/*}*/
 
 
 /* gradient source: https://uigradients.com/#Wiretap */
@@ -44,6 +124,7 @@ video
 
 
 header {
+    z-index: 100;
     padding-top: 10px;
     display: flex;
     flex-direction: column;
@@ -53,6 +134,7 @@ header {
 
 
 h1 {
+    z-index: 100;
     color: transparent;
     background-image: linear-gradient(-90deg, #ff0000, #c830c8);
     -webkit-background-clip: text;
@@ -64,6 +146,7 @@ h1 {
 }
 
 h2,h3{
+    z-index: 100;
     color: #fff;
     text-align: center;
     font-family: "Righteous", sans-serif;
@@ -72,6 +155,7 @@ h2,h3{
 }
 
 h4 {
+    z-index: 100;
     color: #fff;
     text-align: center;
     font-family: "Righteous", sans-serif;
@@ -81,6 +165,7 @@ h4 {
 
 
 a {
+    z-index: 100;
     color: #fff;
     text-align: right;
     font-family: "Righteous", sans-serif;
@@ -90,6 +175,7 @@ a {
 
 
 p {
+    z-index: 100;
     color: #fff;
     text-align: center;
     font-family: "Righteous", sans-serif;
@@ -98,6 +184,7 @@ p {
 }
 
 ul {
+    z-index: 100;
     color: #fff;
     font-size: 1em;
 }
@@ -108,10 +195,12 @@ ul {
 }
 
 .center {
+    z-index: 100;
     text-align: center;
 }
 
 .circular--square {
+    z-index: 100;
     border-radius: 50%;
 }
 
