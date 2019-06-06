@@ -22,12 +22,13 @@
                     </div>
                     <h3 class="highlight">Logged in as {{ .github_user.Login }}</h3>
                     <div class="center">
-                        <div>
-                            <img class="circular--square" width="50px" height="50px" src="{{ .github_user.AvatarURL }}" alt="...">
+                        <div class="avatar-container">
+                            <img class="avatar"  src="{{ .github_user.AvatarURL }}" alt="...">
                         </div>
                         <div>
                             <h4>{{index .github_user_map "Name" }}, {{index .github_user_map "Location" }}</h4>
                         </div>
+                    </div>
                 {{ end }}
             </header>
             <div id="page">
