@@ -49,6 +49,7 @@ type Server struct {
 	store     *sessions.CookieStore
 	templates map[string]*template.Template
 	upgrader  websocket.Upgrader
+	login 	  *string
 }
 
 func NewServer(options db.ClientOptions, mux *mux.Router, config *IdpConfig, oauthCfg *oauth2.Config ) *Server {
@@ -57,7 +58,7 @@ func NewServer(options db.ClientOptions, mux *mux.Router, config *IdpConfig, oau
 	templates := map[string]*template.Template{}
 	templates["home.html"] = template.Must(template.ParseFiles(templateDir+"home.html", defaultLayout))
 	upgrader := websocket.Upgrader{ ReadBufferSize:  1024, WriteBufferSize: 1024,}
-	server := Server{&db,mux, oauthCfg,cookieStore, templates,upgrader}
+	server := Server{&db,mux, oauthCfg,cookieStore, templates,upgrader, nil}
 	server.routes()
 	return &server
 }

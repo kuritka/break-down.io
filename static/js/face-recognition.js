@@ -50,7 +50,6 @@ function startCamera() {
             videoContainer.appendChild(canvas);
             //video.appendChild(canvas);
             faceapi.matchDimensions(canvas,displaySize);
-            console.log(displaySize)
             //detect face asynchronously from video in interval 300ms
             setInterval(async () => {
                 //detects all faces from video
@@ -61,6 +60,18 @@ function startCamera() {
 
                 //gets detections with resized face
                 const resizedDetections = faceapi.resizeResults(detections, displaySize);
+
+
+                if (Array.isArray(resizedDetections) && resizedDetections.length) {
+                    socket.send(JSON.stringify(
+                        {
+                            score: resizedDetections[0].detection.score,
+                            mood: resizedDetections[0].expressions
+                        }
+                    ))
+                }
+
+
                 //clear all in canvas (rectangles around faces)
                 canvas.getContext('2d').clearRect(0,0, canvas.width, canvas.height);
 

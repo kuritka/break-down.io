@@ -28,7 +28,7 @@ func (s *Server) routes() {
 	s.router.Handle("/api/auth/start", s.handleStart(sessionStoreKey)).Methods("GET")
 	s.router.HandleFunc("/api/auth/signing-callback",s.handleAuthCallback(sessionStoreKey)).Methods("GET")
 	s.router.HandleFunc("/api/auth/destroy-session", s.handleDestroySession(sessionStoreKey)).Methods("GET")
-	s.router.HandleFunc("/api/websockets/stream", s.handleStream())
+	s.router.HandleFunc("/api/websockets/stream", s.serveWebSockets())
 }
 
 

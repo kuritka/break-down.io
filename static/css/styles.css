@@ -127,7 +127,9 @@ ul {
     opacity: .8;
     -webkit-transition: opacity .4s;
     transition: opacity .4s;
+}
 
+.avatar-container-live {
     background: linear-gradient(-45deg, #F27121cc, #E94057cc, #8A2387cc);
     background-size: 300% 300%;
 
@@ -135,6 +137,13 @@ ul {
     -moz-animation: Size 2.5s ease infinite;
     animation: Size 2.5s ease infinite;
 }
+
+.avatar-container-down {
+    background: linear-gradient(-45deg,  #F27121cc, #af0000, #8f0000);
+    background-size: 300% 300%;
+}
+
+
 
 @-webkit-keyframes Size {
     0%
@@ -186,6 +195,9 @@ ul {
     opacity: 1;
     -webkit-transition: opacity .4s;
     transition: opacity .4s;
+    -webkit-animation: Size .5s ease infinite;
+    -moz-animation: Size .5s ease infinite;
+    animation: Size .5s ease infinite;
 }
 
 .avatar-container .avatar {

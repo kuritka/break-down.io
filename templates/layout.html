@@ -6,8 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="/static/css/styles.css">
+        <link rel="shortcut icon" href="/static/favicon.ico">
         <script defer src="/static/js/face-api.min.js"></script>
         <script defer src="/static/js/face-recognition.js"></script>
+        <script defer src="/static/js/websocks.js"></script>
         {{template "title" . }}
     </head>
     <body>
@@ -22,7 +24,7 @@
                     </div>
                     <h3 class="highlight">Logged in as {{ .github_user.Login }}</h3>
                     <div class="center">
-                        <div class="avatar-container">
+                        <div id="avatar-container" class="avatar-container">
                             <img class="avatar"  src="{{ .github_user.AvatarURL }}" alt="...">
                         </div>
                         <div>

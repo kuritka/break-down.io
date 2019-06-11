@@ -6,9 +6,12 @@ import (
 	"encoding/base64"
 	"fmt"
 	"github.com/google/go-github/github"
+	"github.com/gorilla/websocket"
+	errorextensions "github.com/kuritka/break-down.io/common/utils"
 	"github.com/mitchellh/mapstructure"
 	"golang.org/x/oauth2"
 	"net/http"
+	"time"
 )
 
 func (s *Server) handleAuthCallback(sessionKey string)http.HandlerFunc {
@@ -71,6 +74,7 @@ func (s *Server) handleHome(sessionKey string)http.HandlerFunc {
 			}
 
 			renderData["github_user"] = user
+			s.login = user.Login
 
 			var userMap map[string]interface{}
 			mapstructure.Decode(user, &userMap)
@@ -115,29 +119,77 @@ func (s *Server) handleDestroySession(sessionKey string) http.HandlerFunc {
 }
 
 
-func (s *Server) handleStream() http.HandlerFunc {
+var inactiveDuration = time.Second * 20
+var pingDuration = time.Second * 3
+var closeConnectionDuration = time.Minute * 20
+
+var noActionLifeBlocker = time.NewTicker(inactiveDuration)
+var recognisedChannel = make(chan string)
+
+func (s *Server) serveWebSockets() http.HandlerFunc {
 	//todo: implement way back to tell client that server doesn't recognise....
 	return func(w http.ResponseWriter, r *http.Request) {
+
 		socket, err := s.upgrader.Upgrade(w, r, nil)
+
+		defer noActionLifeBlocker.Stop()
 		defer socket.Close()
+
+
 		socket.SetReadLimit(1024)
-		//socket.SetReadDeadline(time.Now().Add(60*time.Second))
-		//socket.SetPongHandler(func(string) error {	socket.SetReadDeadline(time.Now().Add(60*time.Second));	return nil	})
+		// Close connection automatically after 24 hrs
+		//socket.SetReadDeadline(time.Now().Add(24*time.Hour))
+
+		socket.SetPongHandler(func(string) error {
+			//killing connection when no pong. Pinging from websockets writer......
+			socket.SetReadDeadline(time.Now().Add(closeConnectionDuration));	return nil
+		})
+
 		if err != nil {
 			return
 		}
+
+		go s.websocksWriter(socket)
 		//socket id opened, now >> go handleRead
 		for {
-			msgType, msg, err := socket.ReadMessage()
-			if err != nil {
-				return
-			}
-			fmt.Printf("%s sent: %s\n", socket.RemoteAddr(), string(msg))
+			_, msg, err := socket.ReadMessage()
+			errorextensions.LogOnError(err, "unable read message from socket")
+			recognisedChannel <- "blah"
+			fmt.Printf("%s sent: %s %s\n", socket.RemoteAddr(), string(msg), *s.login)
+		}
 
-			// Write message back to browser
-			if err = socket.WriteMessage(msgType, msg); err != nil {
-				return
-			}
+	}
+}
+
+func (s *Server) websocksWriter(socket *websocket.Conn ) {
+	pingTicker := time.NewTicker(pingDuration)
+	var lastReceived = time.Now()
+	defer socket.Close()
+	defer pingTicker.Stop()
+
+	for {
+		select {
+
+			case <- pingTicker.C:
+				err := socket.WriteMessage(websocket.PingMessage, []byte{})
+				errorextensions.LogOnError(err, "unable to ping client")
+				break
+
+			case <- noActionLifeBlocker.C:
+				if time.Now().Sub(lastReceived)  > inactiveDuration {
+					err := socket.WriteMessage(websocket.TextMessage, []byte("off"))
+					errorextensions.LogOnError(err, "unable to send message to client")
+					break
+				}
+				break
+
+			case <- recognisedChannel:
+				if time.Now().Sub(lastReceived)  > inactiveDuration {
+					err := socket.WriteMessage(websocket.TextMessage, []byte("on"))
+					errorextensions.LogOnError(err, "unable to send message to client")
+				}
+				lastReceived = time.Now()
+			break
 		}
 	}
 }
