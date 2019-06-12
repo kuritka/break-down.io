@@ -13,7 +13,8 @@ Promise.all([
     //allows recognize face in the box surrounded
     faceapi.nets.faceRecognitionNet.loadFromUri('/static/js/models'),
     //happy, sad, smailing etc...
-    faceapi.nets.faceExpressionNet.loadFromUri('/static/js/models')
+    faceapi.nets.faceExpressionNet.loadFromUri('/static/js/models'),
+
 ]).then(startCamera)
 
 function startCamera() {
@@ -44,7 +45,9 @@ function startCamera() {
 
 
         video.addEventListener('play', ()=> {
+            const socket = websocks.GetSocket();
             const canvas = faceapi.createCanvasFromMedia(video);
+
             //append rectangle with face to video
             document.body.append(canvas);
             videoContainer.appendChild(canvas);
@@ -61,7 +64,6 @@ function startCamera() {
                 //gets detections with resized face
                 const resizedDetections = faceapi.resizeResults(detections, displaySize);
 
-
                 if (Array.isArray(resizedDetections) && resizedDetections.length) {
                     socket.send(JSON.stringify(
                         {
@@ -70,7 +72,6 @@ function startCamera() {
                         }
                     ))
                 }
-
 
                 //clear all in canvas (rectangles around faces)
                 canvas.getContext('2d').clearRect(0,0, canvas.width, canvas.height);

@@ -120,11 +120,13 @@ func (s *Server) handleDestroySession(sessionKey string) http.HandlerFunc {
 
 
 var inactiveDuration = time.Second * 20
-var pingDuration = time.Second * 3
-var closeConnectionDuration = time.Minute * 20
+var pingDuration = time.Second * 1
+var closeConnectionDuration = time.Hour * 8
 
 var noActionLifeBlocker = time.NewTicker(inactiveDuration)
 var recognisedChannel = make(chan string)
+
+var pingTicker = time.NewTicker(pingDuration)
 
 func (s *Server) serveWebSockets() http.HandlerFunc {
 	//todo: implement way back to tell client that server doesn't recognise....
@@ -138,12 +140,17 @@ func (s *Server) serveWebSockets() http.HandlerFunc {
 
 		socket.SetReadLimit(1024)
 		// Close connection automatically after 24 hrs
-		//socket.SetReadDeadline(time.Now().Add(24*time.Hour))
-
 		socket.SetPongHandler(func(string) error {
 			//killing connection when no pong. Pinging from websockets writer......
-			socket.SetReadDeadline(time.Now().Add(closeConnectionDuration));	return nil
+			socket.SetWriteDeadline(time.Now().Add(closeConnectionDuration))
+			socket.SetReadDeadline(time.Now().Add(closeConnectionDuration)); return nil
 		})
+
+		socket.SetCloseHandler(func(int, string) error {
+			pingTicker.Stop()
+			return nil
+		})
+
 
 		if err != nil {
 			return
@@ -152,7 +159,11 @@ func (s *Server) serveWebSockets() http.HandlerFunc {
 		go s.websocksWriter(socket)
 		//socket id opened, now >> go handleRead
 		for {
-			_, msg, err := socket.ReadMessage()
+			messageType, msg, err := socket.ReadMessage()
+			if messageType == -1 {
+				socket.Close()
+				return
+			}
 			errorextensions.LogOnError(err, "unable read message from socket")
 			recognisedChannel <- "blah"
 			fmt.Printf("%s sent: %s %s\n", socket.RemoteAddr(), string(msg), *s.login)
@@ -162,7 +173,7 @@ func (s *Server) serveWebSockets() http.HandlerFunc {
 }
 
 func (s *Server) websocksWriter(socket *websocket.Conn ) {
-	pingTicker := time.NewTicker(pingDuration)
+
 	var lastReceived = time.Now()
 	defer socket.Close()
 	defer pingTicker.Stop()
