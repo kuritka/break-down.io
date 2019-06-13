@@ -123,8 +123,8 @@ var inactiveDuration = time.Second * 20
 var pingDuration = time.Second * 1
 var closeConnectionDuration = time.Hour * 8
 
-var noActionLifeBlocker = time.NewTicker(inactiveDuration)
-var recognisedChannel = make(chan string)
+var noActionLifeBlocker *time.Ticker
+var recognisedChannel chan bool
 
 var pingTicker = time.NewTicker(pingDuration)
 
@@ -133,7 +133,8 @@ func (s *Server) serveWebSockets() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		socket, err := s.upgrader.Upgrade(w, r, nil)
-
+		recognisedChannel = make(chan bool)
+		noActionLifeBlocker = time.NewTicker(inactiveDuration)
 		defer noActionLifeBlocker.Stop()
 		defer socket.Close()
 
@@ -165,7 +166,7 @@ func (s *Server) serveWebSockets() http.HandlerFunc {
 				return
 			}
 			errorextensions.LogOnError(err, "unable read message from socket")
-			recognisedChannel <- "blah"
+			recognisedChannel <- true
 			fmt.Printf("%s sent: %s %s\n", socket.RemoteAddr(), string(msg), *s.login)
 		}
 
@@ -189,7 +190,7 @@ func (s *Server) websocksWriter(socket *websocket.Conn ) {
 			case <- noActionLifeBlocker.C:
 				if time.Now().Sub(lastReceived)  > inactiveDuration {
 					err := socket.WriteMessage(websocket.TextMessage, []byte("off"))
-					errorextensions.LogOnError(err, "unable to send message to client")
+					errorextensions.LogOnError(err, "noActionLifeBlocker: unable to send message to client")
 					break
 				}
 				break
